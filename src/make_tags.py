@@ -18,7 +18,7 @@ def tags_to_urdf(tags, mesh_dir='package://tagslam_viz/tags', tag_fam='36_11',
         print("  <visual>")
         print("   <origin rpy=\"0 0 0\" xyz=\"0 0 -%f\"/>" % (sz * tag_thick))
         print("     <geometry>")
-        print("       <mesh filename=\"%s/tag%s_%05d.dae\" scale=\"%f %f %f\"/>" % (
+        print("       <mesh filename=\"file://%s/tag%s_%05d.dae\" scale=\"%f %f %f\"/>" % (
             mesh_dir, tag_fam, int(t['id']), sz, sz, sz))
         print("     </geometry>")
         print("  </visual>")
@@ -40,7 +40,8 @@ def find_tags(d):
         for k,v in d.items():
             if k == 'tags' and type(v) is list:
                 for t in v: # found what we are looking for!
-                    all = all + [{'id': t['id'], 'size': t['size']}]
+                    size = t.get('size', .17)  # Use default tag size if not provided
+                    all = all + [{'id': t['id'], 'size': size}]
             else:
                 all = all + find_tags(v) # recursion!
     return all
