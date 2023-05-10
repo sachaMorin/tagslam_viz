@@ -40,7 +40,7 @@ def find_tags(d):
         for k,v in d.items():
             if k == 'tags' and type(v) is list:
                 for t in v: # found what we are looking for!
-                    size = t.get('size', .17)  # Use default tag size if not provided
+                    size = t.get('size', .14)  # Use default tag size if not provided
                     all = all + [{'id': t['id'], 'size': size}]
             else:
                 all = all + find_tags(v) # recursion!
